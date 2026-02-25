@@ -1,0 +1,17 @@
+all:
+  children:
+    swarm_nodes:
+      children:
+        swarm_masters:
+          hosts:
+            lyra: null
+        swarm_workers:
+          hosts:
+    storage_nodes:
+      hosts:
+  hosts:
+    lyra:
+      administration_ip: "{{ nodes.lyra.administration.ip }}"
+      ansible_user: lyra-adm
+      ansible_host: "{{ administration_ip }}"
+      ansible_sudo_pass: "{{ nodes.lyra.become_pass }}"
