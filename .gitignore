@@ -1,3 +1,5 @@
 .env
 .vault-pass
 .vscode
+.secrets
+.ansible

@@ -1,0 +1,25 @@
+{
+  "name": "Packer / OpenTofu / Ansible",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "PACKER_VERSION": "1.11.2",
+      "TOFU_VERSION": "1.8.3"
+    }
+  },
+  "remoteUser": "vscode",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+  "workspaceFolder": "/workspace",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "hashicorp.hcl",
+        "hashicorp.terraform",
+        "redhat.ansible"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  }
+}
