@@ -15,9 +15,9 @@ source "proxmox-iso" "pkr-ubuntu-1" {
   qemu_agent               = true
 
   scsi_controller          = "virtio-scsi-pci"
-  cores                    = "2"
+  cores                    = "4"
   sockets                  = "1"
-  memory                   = "2048"
+  memory                   = "4096"
 
   vga {
     type = "virtio"
@@ -26,7 +26,7 @@ source "proxmox-iso" "pkr-ubuntu-1" {
   disks {
     disk_size    = "10G"
     format       = "raw"
-    storage_pool = "local-lvm"
+    storage_pool = "zfs-store"
     type         = "virtio"
   }
 
@@ -76,7 +76,7 @@ source "proxmox-iso" "pkr-ubuntu-1" {
           - qemu-guest-agent
           - sudo
         late-commands:
-          - echo '${var.custom_user}:${var.custom_password}' | chpasswd --root /target
+          - curtin in-target -- bash -c 'echo ${var.custom_user}:${var.custom_password} | chpasswd'
           - echo '${var.custom_user} ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/${var.custom_user}
           - chmod 440 /target/etc/sudoers.d/${var.custom_user}
           - curtin in-target -- systemctl enable qemu-guest-agent

@@ -27,7 +27,7 @@ source "proxmox-iso" "pkr-fedora-1" {
   disks {
     disk_size    = "10G"
     format       = "raw"
-    storage_pool = "local-lvm"
+    storage_pool = "zfs-store"
     type         = "virtio"
   }
 

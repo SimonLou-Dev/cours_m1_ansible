@@ -26,7 +26,7 @@ source "proxmox-iso" "pkr-alpine-1" {
   disks {
     disk_size    = "5G"
     format       = "raw"
-    storage_pool = "local-lvm"
+    storage_pool = "zfs-store"
     type         = "virtio"
   }
 

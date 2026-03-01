@@ -1,0 +1,34 @@
+proxmox:
+  node: pve-a-2       # nœud par défaut
+  storage: local-lvm  # storage par défaut (surchargeable par VM avec node: / storage:)
+
+vms:
+  - name: web-01
+    template: pkr-fedora-41-1.4
+    vmid: 200
+    cores: 2
+    memory: 2048
+    disk: 20G
+    cloudinit: true
+    storage: zfs-store
+    network:
+      ip: 172.16.0.10/24
+      gateway: 172.16.0.1
+    groups:
+      - nginx
+
+# --- OpenWrt VMs (count-based, générées automatiquement) ---
+# Script de création du template : scripts/build-openwrt-vm-template.sh
+# Naming : openwrt-001 → openwrt-300
+# IP scheme : network 10.0.1.0/24 → openwrt-001 = 10.0.1.1, openwrt-042 = 10.0.1.42
+openwrt:
+  count:         1
+  vmid_start:    1000         # openwrt-001 = vmid 1000, openwrt-002 = vmid 1001...
+  template_vmid: 90200        # vmid du template créé par le script
+  network:       10.0.1.0/24  # openwrt-001 → 10.0.1.1, openwrt-042 → 10.0.1.42
+  gateway:       10.0.1.254
+  node:    pve-a-2
+  storage: zfs-store
+  vxlan:
+    bridge:  vmbr1            # bridge Proxmox avec VXLAN configuré
+    network: 10.200.0.0/24    # openwrt-001 → 10.200.0.1, openwrt-002 → 10.200.0.2...

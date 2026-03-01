@@ -1,17 +1,7 @@
-all:
-  children:
-    swarm_nodes:
-      children:
-        swarm_masters:
-          hosts:
-            lyra: null
-        swarm_workers:
-          hosts:
-    storage_nodes:
-      hosts:
-  hosts:
-    node_1:
-      administration_ip: "{{ nodes.michel.ip }}"
-      ansible_user: "{{ nodes.michel.user }}"
-      ansible_host: "{{ administration_ip }}"
-      ansible_sudo_pass: "{{ nodes.michel.become_pass }}"
+"all":
+  "children":
+    "nginx":
+      "hosts":
+        "web-01":
+          "ansible_host": "172.16.0.10"
+          "ansible_user": "esgi"

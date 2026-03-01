@@ -1,0 +1,4 @@
+proxmox_api_url = "https://172.16.0.111:8006"
+proxmox_token_id = "terraform@pve!terraform"
+ssh_user = "esgi"
+ssh_password = "esgi"
