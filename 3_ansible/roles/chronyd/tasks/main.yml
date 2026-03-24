@@ -1,12 +1,12 @@
 ---
-- name: Chronyd installation
+- name: Install chrony
   dnf:
     name: chrony
-    state: latest
+    state: present
 
-- name: Changing ntp pool used
+- name: Switch used NTP pool to {{ chronyd_ntp_pool }}
   lineinfile:
     path: /etc/chrony.conf
     search_string: "^pool"
     line: "pool {{ chronyd_ntp_pool }} iburst"
-  notify: restart chronyd
+  notify: Restart and enable chronyd
