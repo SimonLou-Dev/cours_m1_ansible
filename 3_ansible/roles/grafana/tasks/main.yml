@@ -1,0 +1,34 @@
+---
+- name: Add Grafana GPG key to RPM
+  rpm_key:
+    state: present
+    key: https://rpm.grafana.com/gpg.key
+
+- name: Add Grafana repository to yum
+  yum_repository:
+    name: grafana
+    description: Grafana Repository
+    baseurl: https://rpm.grafana.com
+    gpgcheck: 1
+    gpgkey: https://rpm.grafana.com/gpg.key
+
+- name: Install Grafana OSS
+  dnf:
+    name: grafana
+    state: present
+
+- name: Configure Grafana
+  template:
+    src: grafana.ini.j2
+    dest: /etc/grafana/grafana.ini
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart and enable Grafana
+
+- name: Open Grafana firewall port
+  firewalld:
+    port: "{{ grafana.http_port }}/tcp"
+    permanent: true
+    state: enabled
+    immediate: true

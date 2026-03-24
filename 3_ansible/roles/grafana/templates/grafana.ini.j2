@@ -1,0 +1,20 @@
+[paths]
+data = {{ grafana.data_dir }}
+logs = {{ grafana.log_dir }}
+plugins = {{ grafana.data_dir }}/plugins
+provisioning = {{ grafana.config_dir }}/provisioning
+
+[server]
+protocol = http
+http_addr =
+http_port = {{ grafana.http_port }}
+domain = {{ grafana.domain }}
+root_url = %(protocol)s://%(domain)s:%(http_port)s/
+
+[security]
+admin_user = admin
+admin_password = {{ grafana.admin_password }}
+
+[log]
+mode = console
+level = info

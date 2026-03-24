@@ -12,14 +12,14 @@
     validate: dnsmasq --test %s
   notify: Restart and enable dnsmasq
 
-- name: Open DNS firewall ports
+- name: Open DNS firewall port
   firewalld:
     service: dns
     permanent: yes
     state: enabled
     immediate: yes
 
-- name: Open DHCP firewall ports
+- name: Open DHCP firewall port
   firewalld:
     service: dhcp
     permanent: yes
