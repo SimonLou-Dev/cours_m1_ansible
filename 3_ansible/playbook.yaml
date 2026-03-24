@@ -1,13 +1,26 @@
 ---
-- name: all flemme
-  hosts: nginx
+- name: Basic installation and configuration
+  hosts: all
   become: true
   roles:
     - chronyd
+    - node-exporter
+
+- name: Web servers installation and configuration
+  hosts: nginx
+  become: true
+  roles:
     - nginx
 
-- name: DHCP + DNS
-  hosts: dns-master, dns-slave
+- name: DNS servers installation and configuration
+  hosts: dns-primary, dns-secondary
   become: true
   roles:
     - dnsmasq
+
+- name: Monitoring servers installation and configuration
+  hosts: monitoring
+  become: true
+  roles:
+    - prometheus
+    - grafana
