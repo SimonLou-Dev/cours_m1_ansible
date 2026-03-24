@@ -12,6 +12,22 @@
   ignore_errors: true
   become: true
 
+- name: "Supprimer le symlink /etc/resolv.conf"
+  ansible.builtin.file:
+    path: /etc/resolv.conf
+    state: absent
+  become: true
+
+- name: "Créer /etc/resolv.conf pointant vers dnsmasq local"
+  ansible.builtin.copy:
+    dest: /etc/resolv.conf
+    content: |
+      nameserver 127.0.0.1
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
+
 - name: Configure dnsmasq
   template:
     src: dnsmasq.conf.j2
