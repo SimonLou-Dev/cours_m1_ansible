@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ nginx.html_title }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 100px; background: #f0f8ff; }
+        h1 { color: #007bff; }
+        .info { background: white; padding: 20px; border-radius: 10px; display: inline-block; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+    <div class="info">
+        <h1>🏠 Bienvenue !</h1>
+        <p>Serveur <strong>Nginx</strong> déployé par <strong>Ansible</strong> sur <em>Fedora</em>.</p>
+        <p>Hôte : {{ ansible_fqdn }} | IP : {{ ansible_facts["default_ipv4"]["address"] }}</p>
+        <p>Déployé le : {{ ansible_date_time.date }}</p>
+    </div>
+</body>
+</html>

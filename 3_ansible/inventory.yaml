@@ -1,7 +1,0 @@
-"all":
-  "children":
-    "nginx":
-      "hosts":
-        "web-01":
-          "ansible_host": "172.16.0.10"
-          "ansible_user": "esgi"

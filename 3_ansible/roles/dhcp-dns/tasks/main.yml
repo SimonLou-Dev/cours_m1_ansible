@@ -1,0 +1,34 @@
+---
+- name: dnsmasq installation
+  dnf:
+    name: dnsmasq
+    state: latest
+
+- name: dnsmasq configuration
+  template:
+    src: dnsmasq.conf.j2
+    dest: /etc/dnsmasq.conf
+    backup: yes
+    validate: dnsmasq --test %s
+  notify: restart dnsmasq
+
+- name: opening firewall ports
+  firewalld:
+    service: "{{ item }}"
+    permanent: yes
+    state: enabled
+    immediate: yes
+  notify: restart dnsmasq
+  loop:
+    - dns
+    - dhcp
+  when: ansible_facts["hostname"] in groups["dns-master"]
+
+- name: opening firewall ports
+  firewalld:
+    service: dns
+    permanent: yes
+    state: enabled
+    immediate: yes
+  notify: restart dnsmasq
+  when: ansible_facts["hostname"] in groups["dns-slave"]

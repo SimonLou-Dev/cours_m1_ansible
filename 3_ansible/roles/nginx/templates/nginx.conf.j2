@@ -1,0 +1,19 @@
+server {
+    listen {{ nginx.port }};
+    listen [::]:{{ nginx.port }};
+    server_name {{ nginx.server_name }};
+
+    root {{ nginx.root }};
+    index index.html index.htm;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location ~ /\. {
+        deny all;
+    }
+
+    access_log /var/log/nginx/access.log;
+    error_log /var/log/nginx/error.log;
+}

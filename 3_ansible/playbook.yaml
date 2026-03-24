@@ -1,0 +1,13 @@
+---
+- name: all flemme
+  hosts: nginx
+  become: true
+  roles:
+    - chronyd
+    - nginx
+
+- name: DHCP + DNS
+  hosts: dns-master, dns-slave
+  become: true
+  roles:
+    - dhcp-dns

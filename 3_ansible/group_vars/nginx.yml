@@ -1,0 +1,8 @@
+---
+chronyd_ntp_pool: "fr.pool.ntp.org"
+
+nginx:
+  port: 80
+  root: "/var/www/html"
+  server_name: "{{ ansible_facts['fqdn'] }}"
+  html_title: "Web Server for Ansible"

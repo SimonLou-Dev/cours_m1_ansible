@@ -1,0 +1,12 @@
+---
+- name: Chronyd installation
+  dnf:
+    name: chrony
+    state: latest
+
+- name: Changing ntp pool used
+  lineinfile:
+    path: /etc/chrony.conf
+    search_string: "^pool"
+    line: "pool {{ chronyd_ntp_pool }} iburst"
+  notify: restart chronyd
