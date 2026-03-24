@@ -16,7 +16,7 @@ vms:
       gateway: 172.16.0.1
     groups:
       - nginx
-      - dns-master
+      - dns-primary
 
   - name: dns-02
     template: pkr-fedora-41-1.4
@@ -30,4 +30,18 @@ vms:
       ip: 172.16.0.11/24
       gateway: 172.16.0.1
     groups:
-      - dns-slave
+      - dns-secondary
+
+  - name: mon-01
+    template: pkr-fedora-41-1.4
+    vmid: 202
+    cores: 2
+    memory: 2048
+    disk: 20G
+    cloudinit: true
+    storage: zfs-store
+    network:
+      ip: 172.16.0.12/24
+      gateway: 172.16.0.1
+    groups:
+      - monitoring
