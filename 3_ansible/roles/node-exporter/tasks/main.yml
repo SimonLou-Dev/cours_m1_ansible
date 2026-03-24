@@ -1,0 +1,35 @@
+---
+- name: Download Node Exporter
+  get_url:
+    url: "{{ node_exporter.download_url }}"
+    dest: "/tmp/node_exporter-{{ node_exporter.version }}.tar.gz"
+    mode: 0644
+
+- name: Extract Node Exporter
+  unarchive:
+    src: "/tmp/node_exporter-{{ node_exporter.version }}.tar.gz"
+    dest: /tmp/
+    remote_src: true
+
+- name: Move Node Exporter binary
+  copy:
+    src: "/tmp/node_exporter-{{ node_exporter.version }}/node_exporter"
+    dest: "/usr/local/bin/node_exporter"
+    mode: 0755
+    remote_src: true
+  notify: Restart Node Exporter
+
+- name: Create Node Exporter user
+  user:
+    name: node_exporter
+    shell: /usr/sbin/nologin
+    create_home: false
+
+- name: Create Node Exporter systemd service
+  template:
+    src: node_exporter.service.j2
+    dest: /etc/systemd/system/node_exporter.service
+    owner: root
+    group: root
+    mode: 0644
+  notify: Restart and enable Node Exporter
