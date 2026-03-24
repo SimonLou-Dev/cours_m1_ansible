@@ -1,0 +1,58 @@
+---
+- name: Create prometheus user
+  user:
+    name: prometheus
+    shell: /usr/sbin/nologin
+    create_home: false
+
+- name: Download Prometheus
+  get_url:
+    url: "{{ prometheus.download_url }}"
+    dest: "/tmp/prometheus-{{ prometheus.version }}.tar.gz"
+    mode: 0644
+
+- name: Extract Prometheus
+  unarchive:
+    src: "/tmp/prometheus-{{ prometheus.version }}.tar.gz"
+    dest: /tmp/
+    remote_src: true
+
+- name: Move Prometheus binaries
+  copy:
+    src: "/tmp/prometheus-{{ prometheus.version }}/{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    mode: 0755
+    remote_src: true
+  notify: Restart and enable Prometheus
+  loop:
+    - prometheus
+    - promtool
+
+- name: Create Prometheus directories
+  file:
+    state: directory
+    path: "{{ item }}"
+    owner: prometheus
+    group: prometheus
+    mode: 0755
+  loop:
+    - /etc/prometheus
+    - /var/lib/prometheus
+
+- name: Configure Prometheus
+  template:
+    src: prometheus.yml.j2
+    dest: /etc/prometheus/prometheus.yml
+    owner: prometheus
+    group: prometheus
+    mode: 0644
+  notify: Restart and enable Prometheus
+
+- name: Create Prometheus systemd service
+  template:
+    src: prometheus.service.j2
+    dest: /etc/systemd/system/prometheus.service
+    owner: root
+    group: root
+    mode: 0644
+  notify: Restart and enable Prometheus

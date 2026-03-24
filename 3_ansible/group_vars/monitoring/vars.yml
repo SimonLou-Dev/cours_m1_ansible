@@ -1,0 +1,12 @@
+---
+prometheus:
+  version: "3.10.0"
+  download_url: "https://github.com/prometheus/prometheus/releases/download/v{{ prometheus.version }}/prometheus-{{ prometheus.version }}.linux-amd64.tar.gz"
+
+grafana:
+  data_dir: "/var/lib/grafana"
+  log_dir: "/var/log/grafana"
+  config_dir: "/etc/grafana"
+  http_port: 3000
+  domain: "localhost"
+  admin_password: "{{ grafana_admin_password }}"

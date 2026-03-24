@@ -19,7 +19,7 @@
     remote_src: true
   notify: Restart Node Exporter
 
-- name: Create Node Exporter user
+- name: Create node_exporter user
   user:
     name: node_exporter
     shell: /usr/sbin/nologin
