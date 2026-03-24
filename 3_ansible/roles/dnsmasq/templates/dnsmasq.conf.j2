@@ -1,14 +1,14 @@
 domain-needed
 bogus-priv
 no-resolv
-{% if ansible_facts["hostname"] in groups["dns-master"] %}
+{% if ansible_facts["hostname"] in groups["dns-primary"] %}
 {% for dns in dnsmasq.upstream_dns %}
 server={{ dns }}
 {% endfor %}
 {% endif %}
-{% if ansible_facts["hostname"] in groups["dns-slave"] %}
-server={{ groups("dns-master")[0] }}
-server=/{{ dnsmasq.domain }}/{{ groups("dns-master")[0] }}
+{% if ansible_facts["hostname"] in groups["dns-secondary"] %}
+server={{ groups("dns-primary")[0] }}
+server=/{{ dnsmasq.domain }}/{{ groups("dns-primary")[0] }}
 {% endif %}
 local=/{{ dnsmasq.domain }}/
 listen-address=127.0.0.1,::1,{{ ansible_default_ipv4.address }}
@@ -16,10 +16,10 @@ interface={{ dnsmasq.interface }}
 expand-hosts
 domain={{ dnsmasq.domain }}
 
-{% if ansible_facts["hostname"] in groups["dns-master"] %}
-dhcp-range={{ dnsmasq.range_start }},{{ dnsmasq.range_end }},{{ dnsmasq.lease_time }}
+{% if ansible_facts["hostname"] in groups["dns-primary"] %}
+dhcp-range={{ dnsmasq.dhcp.range_start }},{{ dnsmasq.dhcp.range_end }},{{ dnsmasq.dhcp.lease_time }}
 
-dhcp-option=option:router,{{ dnsmasq.gateway }}
+dhcp-option=option:router,{{ dnsmasq.dhcp.gateway }}
 dhcp-authoritative
 dhcp-leasefile=/var/lib/dnsmasq/dnsmasq.leases
 {% endif %}

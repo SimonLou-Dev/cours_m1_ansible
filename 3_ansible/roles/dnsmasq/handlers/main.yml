@@ -1,5 +1,5 @@
 ---
-- name: restart dnsmasq
+- name: Restart and enable dnsmasq
   systemd:
     name: dnsmasq
     state: restarted
