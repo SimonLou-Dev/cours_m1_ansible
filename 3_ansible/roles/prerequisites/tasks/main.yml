@@ -1,0 +1,13 @@
+---
+- name: Installing prerequisites
+  dnf:
+    name:
+      - python3-firewall
+      - firewalld
+    state: present
+
+- name: Ensuring firewalld is running
+  service:
+    name: firewalld
+    state: started
+    enabled: true

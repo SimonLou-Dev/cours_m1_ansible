@@ -1,5 +1,5 @@
 proxmox:
-  node: pve-a-2 # nœud par défaut
+  node: pve # nœud par défaut
   storage: local-lvm # storage par défaut (surchargeable par VM avec node: / storage:)
 
 vms:
@@ -8,12 +8,9 @@ vms:
     vmid: 200
     cores: 2
     memory: 2048
-    disk: 20G
-    cloudinit: true
-    storage: zfs-store
-    network:
-      ip: 172.16.0.10/24
-      gateway: 172.16.0.1
+    disk: 10G
+    cloudinit: false
+    storage: local-lvm
     groups:
       - nginx
       - dns-primary
@@ -23,12 +20,9 @@ vms:
     vmid: 201
     cores: 2
     memory: 2048
-    disk: 20G
-    cloudinit: true
-    storage: zfs-store
-    network:
-      ip: 172.16.0.11/24
-      gateway: 172.16.0.1
+    disk: 10G
+    cloudinit: false
+    storage: local-lvm
     groups:
       - dns-secondary
 
@@ -37,11 +31,8 @@ vms:
     vmid: 202
     cores: 2
     memory: 2048
-    disk: 20G
-    cloudinit: true
-    storage: zfs-store
-    network:
-      ip: 172.16.0.12/24
-      gateway: 172.16.0.1
+    disk: 10G
+    cloudinit: false
+    storage: local-lvm
     groups:
       - monitoring

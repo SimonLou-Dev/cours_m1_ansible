@@ -3,7 +3,8 @@
   hosts: all
   become: true
   roles:
-    - chronyd
+    - prerequisites
+    - chrony
     - node-exporter
 
 - name: Web servers installation and configuration

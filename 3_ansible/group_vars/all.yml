@@ -1,4 +1,6 @@
 ---
+chronyd_ntp_pool: "fr.pool.ntp.org"
+
 node_exporter:
   version: "1.10.2"
   download_url: "https://github.com/prometheus/node_exporter/releases/download/v{{ node_exporter.version }}/node_exporter-{{ node_exporter.version }}.linux-amd64.tar.gz"
