@@ -10,3 +10,6 @@
 *.tfstate.backup
 *.tfvars
 .terraform.lock.hcl
+
+# Misc
+.DS_Store

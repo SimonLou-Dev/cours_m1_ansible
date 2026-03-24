@@ -10,4 +10,4 @@
   hosts: dns-master, dns-slave
   become: true
   roles:
-    - dhcp-dns
+    - dnsmasq
