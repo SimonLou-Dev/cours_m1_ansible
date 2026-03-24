@@ -4,12 +4,19 @@
     name: dnsmasq
     state: present
 
+- name: "Stopper et désactiver systemd-resolved si présent"
+  ansible.builtin.service:
+    name: systemd-resolved
+    state: stopped
+    enabled: false
+  ignore_errors: true
+  become: true
+
 - name: Configure dnsmasq
   template:
     src: dnsmasq.conf.j2
     dest: /etc/dnsmasq.conf
     backup: yes
-    validate: dnsmasq --test %s
   notify: Restart and enable dnsmasq
 
 - name: Open DNS firewall port

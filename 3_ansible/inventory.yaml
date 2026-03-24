@@ -4,27 +4,27 @@
       "hosts":
         "web-01":
           "ansible_become_password": "esgi"
-          "ansible_host": "172.29.20.138"
+          "ansible_host": "172.29.20.191"
           "ansible_password": "esgi"
           "ansible_user": "esgi"
     "dns-secondary":
       "hosts":
         "dns-02":
           "ansible_become_password": "esgi"
-          "ansible_host": "172.29.20.160"
+          "ansible_host": "172.29.20.154"
           "ansible_password": "esgi"
           "ansible_user": "esgi"
     "monitoring":
       "hosts":
         "mon-01":
           "ansible_become_password": "esgi"
-          "ansible_host": "172.29.20.177"
+          "ansible_host": "172.29.20.100"
           "ansible_password": "esgi"
           "ansible_user": "esgi"
     "nginx":
       "hosts":
         "web-01":
           "ansible_become_password": "esgi"
-          "ansible_host": "172.29.20.138"
+          "ansible_host": "172.29.20.191"
           "ansible_password": "esgi"
           "ansible_user": "esgi"

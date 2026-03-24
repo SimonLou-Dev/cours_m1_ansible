@@ -5,6 +5,15 @@
     shell: /usr/sbin/nologin
     create_home: false
 
+- name: Disable cockpit on monitoring servers
+  systemd:
+    name: cockpit{{ item }}
+    state: stopped
+    enabled: false
+  loop:
+    - .service
+    - .socket
+
 - name: Download Prometheus
   get_url:
     url: "{{ prometheus.download_url }}"
@@ -19,7 +28,7 @@
 
 - name: Move Prometheus binaries
   copy:
-    src: "/tmp/prometheus-{{ prometheus.version }}/{{ item }}"
+    src: "/tmp/prometheus-{{ prometheus.version }}.linux-amd64/{{ item }}"
     dest: "/usr/local/bin/{{ item }}"
     mode: 0755
     remote_src: true

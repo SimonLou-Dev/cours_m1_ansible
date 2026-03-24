@@ -14,8 +14,8 @@
     <div class="info">
         <h1>🏠 Bienvenue !</h1>
         <p>Serveur <strong>Nginx</strong> déployé par <strong>Ansible</strong> sur <em>Fedora</em>.</p>
-        <p>Hôte : {{ ansible_fqdn }} | IP : {{ ansible_facts["default_ipv4"]["address"] }}</p>
-        <p>Déployé le : {{ ansible_date_time.date }}</p>
+        <p>Hôte : {{ ansible_facts["fqdn"] }} | IP : {{ ansible_facts["default_ipv4"]["address"] }}</p>
+        <p>Déployé le : {{ ansible_facts["date_time"]["date"] }}</p>
     </div>
 </body>
 </html>

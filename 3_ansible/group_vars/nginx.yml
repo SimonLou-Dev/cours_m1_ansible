@@ -1,5 +1,4 @@
 ---
-chronyd_ntp_pool: "fr.pool.ntp.org"
 
 nginx:
   port: 80
